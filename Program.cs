@@ -10,6 +10,13 @@ namespace Basisprogrammering_Spil_Projekt
     {
         static void Main(string[] args)
         {
+            //Kode til menu
+
+
+            //Funktioner til første spil
+
+
+            //Funktioner til andet spil
         }
     }
 }
