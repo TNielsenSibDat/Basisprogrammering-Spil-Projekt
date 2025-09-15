@@ -100,7 +100,7 @@ namespace Basisprogrammering_Spil_Projekt
             int xKoordinat = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("Vælg koordinat på y aksen (skriv 0, 1 eller 2) ");
             int yKoordinat = Convert.ToInt32(Console.ReadLine()); //lav måske et if statement ting hvor man bliver spurgt om man er sikker på sit valg hvor der vises et board hvor man har sat sit felt og blive dermed spurgt om det er der man gerne vil sætte sit tegn - så tjekker den med et if statement og man trykkede ja eller nej og reverter tilbage til valget hvis man trykkede nej
-            spilBræt[xKoordinat, yKoordinat] = "X";
+            spilBræt[xKoordinat, yKoordinat] = "X"; 
             TicTacToeBræt(spilBræt);
 
 
