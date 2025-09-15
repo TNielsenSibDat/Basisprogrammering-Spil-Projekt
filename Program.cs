@@ -14,7 +14,7 @@ namespace Basisprogrammering_Spil_Projekt
     {
         static void Main(string[] args)
         {
-            //Kode til menu
+            //Kode til menu - måske smid dette ind i en funktion så vi kan kalde den når et bestemt spil skal afsluttes for at vende tilbage til menuen
 
             Console.WriteLine("Velkommen til!");
             
@@ -95,34 +95,96 @@ namespace Basisprogrammering_Spil_Projekt
 
             TicTacToeVælg(); //sæt koden ind i den der i stedet for når koden til valget er done
 
-            Console.WriteLine("Hvor vil du sætte et X?");
-            Console.WriteLine("Vælg koordinat på x aksen (skriv 0, 1 eller 2) ");
-            int xKoordinat = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Vælg koordinat på y aksen (skriv 0, 1 eller 2) ");
-            int yKoordinat = Convert.ToInt32(Console.ReadLine()); //lav måske et if statement ting hvor man bliver spurgt om man er sikker på sit valg hvor der vises et board hvor man har sat sit felt og blive dermed spurgt om det er der man gerne vil sætte sit tegn - så tjekker den med et if statement og man trykkede ja eller nej og reverter tilbage til valget hvis man trykkede nej
-            spilBræt[xKoordinat, yKoordinat] = "X"; 
-            TicTacToeBræt(spilBræt);
+            int antalValg = 0;
+
+            for (int i = antalValg; i < 3; i++)
+            {
+                Console.WriteLine("Hvor vil du sætte et X?");
+                Console.WriteLine("Vælg koordinat på x aksen (skriv 0, 1 eller 2) ");
+                int xKoordinat = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Vælg koordinat på y aksen (skriv 0, 1 eller 2) ");
+                int yKoordinat = Convert.ToInt32(Console.ReadLine()); //lav måske et if statement ting hvor man bliver spurgt om man er sikker på sit valg hvor der vises et board hvor man har sat sit felt og blive dermed spurgt om det er der man gerne vil sætte sit tegn - så tjekker den med et if statement og man trykkede ja eller nej og reverter tilbage til valget hvis man trykkede nej
+                if (spilBræt[xKoordinat, yKoordinat] != ".")
+                {
+                    Console.WriteLine("Din giraf");
+                }
+                else
+                {
+                    spilBræt[xKoordinat, yKoordinat] = "X"; //rundt om dette skal if statementet der tjekker om feltet allerede er fyldt ud nok være - 
+                }
+
+
+                TicTacToeBræt(spilBræt);
+
+                // string[,] computerValg = TicTacToeComputerValg();
+                Console.WriteLine("Computeren vælger:");
+                TicTacToeComputerValg(spilBræt);
+
+                TicTacToeBræt(spilBræt);
+               
+            }
+
+
+
+            /*
+             
+             tjek til at der ikke står noget der hvor spiller/computer prøver at sætte noget:
+
+            if(spilBræt[x,y] != ".") //tjekker om det felt der forsøges udfyldt har en anden værdi en "." altså om feltet er fyldt ud med enten X eller O
+            {
+                
+            }
+             
+             */
 
 
         }
+
+        private static void TicTacToeComputerValg(string[,] bræt)
+        {
+            //måske hardcode nogle valg - fx start med at sæt et tegn i midten hvis det ikke er optaget - ellers gå til random selection hvis datapunktet er optaget
+
+            Random random = new Random();
+            bool optagetData = true;
+
+            while(optagetData)
+            {
+                int x = random.Next(0, 2);
+                int y = random.Next(0, 2);
+                if (bræt[x, y] != ".")
+                {
+                    Console.WriteLine("Computeren valgte et felt hvor der allerede var data");
+
+
+                }
+                else
+                {
+                    bræt[x, y] = "O";
+                    optagetData = false;
+                }
+            }
+
+        }
+
 
         private static void TicTacToeVælg()
         {
 
         }
 
-        private static void TicTacToeBræt(string[,] spilBræt)
+        private static void TicTacToeBræt(string[,] Bræt)
         {
 
             for (int x = 0; x < 3; x++)
             {
                 for (int y = 0; y < 3; y++)
                 {
-                    Console.Write(spilBræt[x, y] + " "); //udskriver index x og y og lægger en string med et mellemrum til
+                    Console.Write(Bræt[x, y] + " "); //udskriver index x og y og lægger en string med et mellemrum til
                 }
 
                 Console.WriteLine(); //laver et linebreak efter hele rækken af "." er udskrevet
             }
+
 
 
             Console.WriteLine("");
