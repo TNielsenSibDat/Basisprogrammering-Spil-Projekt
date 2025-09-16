@@ -16,6 +16,8 @@ namespace Basisprogrammering_Spil_Projekt
         {
             //Kode til menu - måske smid dette ind i en funktion så vi kan kalde den når et bestemt spil skal afsluttes for at vende tilbage til menuen
 
+            
+
             Console.WriteLine("Velkommen til!");
             
 
@@ -76,6 +78,7 @@ namespace Basisprogrammering_Spil_Projekt
                 }
             }
 
+
             TicTacToeBræt(spilBræt);
 
             Console.WriteLine("Hvis du gerne vil sætte X i midten skriver du dermed '1' ved X koordinat og '1' ved y koordinat");
@@ -83,24 +86,20 @@ namespace Basisprogrammering_Spil_Projekt
             Console.ReadLine();
             Console.Clear();
             //Opretter en forloop der genererer spilbrættet ved at tildele arrayet spilBræt et "." på hvert index
-            for (int x = 0; x < 3; x++)
-            {
-                for (int y = 0; y < 3; y++)
-                {
-                    spilBræt[x, y] = ".";
-                }
-            }
+            TicTacToeClearBoard(spilBræt);
 
             TicTacToeBræt(spilBræt);
 
             TicTacToeVælg(); //sæt koden ind i den der i stedet for når koden til valget er done
 
-            int antalValg = 0;
-
-            for (int i = antalValg; i < 3; i++)
+            
+            int spillerVandt = 0;
+            int computerVandt = 0;
+            int antalSpil = 0;
+            while (true)
             {
                 
-
+                
                 Console.WriteLine("Hvor vil du sætte et X?");
                 Console.WriteLine("Vælg koordinat på x aksen (skriv 0, 1 eller 2) ");
                 int xKoordinat = Convert.ToInt32(Console.ReadLine());
@@ -113,20 +112,69 @@ namespace Basisprogrammering_Spil_Projekt
                 else
                 {
                     spilBræt[yKoordinat, xKoordinat] = "X"; //rundt om dette skal if statementet der tjekker om feltet allerede er fyldt ud nok være - 
-                    
+
                 }
 
 
                 TicTacToeBræt(spilBræt);
+
 
                 // string[,] computerValg = TicTacToeComputerValg();
                 Console.WriteLine("Computeren vælger:");
                 TicTacToeComputerValg(spilBræt);
 
                 TicTacToeBræt(spilBræt);
-                TicTacToeCheckVinder("X", spilBræt);
+                spillerVandt = TicTacToeCheckVinder("X", spilBræt);
+                computerVandt = TicTacToeCheckVinder("O", spilBræt);
+                antalSpil += 1;
+                Console.WriteLine(antalSpil % 3);
+
+
+                //luk det her inde i et form for while loop som kører så længe at der ikke er nogen der har vundet ved at flytte brikker endnu
+                if (spillerVandt == 0 && computerVandt == 0 && antalSpil % 3 == 0) //der går noget galt med matematikken her tror jeg - når man går i gang med andet spil får man lov at sætte 4 x'r og 3. spil bliver man allerede bedt om at flytte en brik efter første move?
+                {
+                    antalSpil -= 1; //tror dette fiksede mit problem for nu forbliver den der modulus condition true så længe at der ikke er nogen der har vundet - tror bare jeg skal have fikset det der gøgl med at brættet ikke vises ordentligt osv
+                    
+                    Console.WriteLine("Hej");
+                    //få bruger til at vælge et felt der har data - så omvendt af det tjek der checker om der er data i et felt og siger nej hvis der er - nu skal den kun gå videre i koden hvis der faktisk er data
+
+                    Console.WriteLine("Nu skal vælge hvilken en af dine 'brikker?' du vil flytte");
+                    Console.WriteLine("Hvilket X vil du flytte?");
+                    Console.WriteLine("Vælg koordinat på x aksen (skriv 0, 1 eller 2) ");
+                    int xFlyt = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine("Vælg koordinat på y aksen (skriv 0, 1 eller 2) ");
+                    int yFlyt = Convert.ToInt32(Console.ReadLine());
+                    if (spilBræt[yFlyt, xFlyt] == "X")
+                    {
+                        spilBræt[yFlyt, xFlyt] = ".";
+
+                    }
+                    else
+                    {
+                        //rundt om dette skal if statementet der tjekker om feltet allerede er fyldt ud nok være - 
+                        Console.WriteLine("din giraf");
+                    }
+                    TicTacToeComputerFlyt(spilBræt);
+                    TicTacToeBræt(spilBræt);
+                    
+
+
+
+
+                } else if (spillerVandt != 0 || computerVandt != 0)
+                {
+                    TicTacToeClearBoard(spilBræt);
+                    antalSpil = 0;
+                }
+
             }
-            
+
+
+
+
+
+
+
 
 
 
@@ -145,7 +193,19 @@ namespace Basisprogrammering_Spil_Projekt
 
         }
         
-        private static void TicTacToeCheckVinder(string input, string[,] board)
+        private static string[,] TicTacToeClearBoard(string[,] bræt)
+        {
+            for (int x = 0; x < 3; x++)
+            {
+                for (int y = 0; y < 3; y++)
+                {
+                    bræt[x, y] = ".";
+                    
+                }
+            }
+            return bræt;
+        }
+        private static int TicTacToeCheckVinder(string input, string[,] board)
         {
          
             //tjekker alle rækker for om nogen har vundet
@@ -154,10 +214,12 @@ namespace Basisprogrammering_Spil_Projekt
                if(input == "X")
                 {
                     TicTacToeSpillerVinder();
+                    return 1;
                 }
                 else
                 {
                     TicTacToePCVinder();
+                    return 2;
                 }
                 
             }
@@ -167,10 +229,12 @@ namespace Basisprogrammering_Spil_Projekt
                 if (input == "X")
                 {
                     TicTacToeSpillerVinder();
+                    return 1;
                 }
                 else
                 {
                     TicTacToePCVinder();
+                    return 2;
                 }
             }
 
@@ -179,10 +243,12 @@ namespace Basisprogrammering_Spil_Projekt
                 if (input == "X")
                 {
                     TicTacToeSpillerVinder();
+                    return 1;
                 }
                 else
                 {
                     TicTacToePCVinder();
+                    return 2;
                 }
             }
 
@@ -192,10 +258,12 @@ namespace Basisprogrammering_Spil_Projekt
                 if (input == "X")
                 {
                     TicTacToeSpillerVinder();
+                    return 1;
                 }
                 else
                 {
                     TicTacToePCVinder();
+                    return 2;
                 }
             }
 
@@ -204,10 +272,12 @@ namespace Basisprogrammering_Spil_Projekt
                 if (input == "X")
                 {
                     TicTacToeSpillerVinder();
+                    return 1;
                 }
                 else
                 {
                     TicTacToePCVinder();
+                    return 2;
                 }
             }
 
@@ -216,10 +286,12 @@ namespace Basisprogrammering_Spil_Projekt
                 if (input == "X")
                 {
                     TicTacToeSpillerVinder();
+                    return 1;
                 }
                 else
                 {
                     TicTacToePCVinder();
+                    return 2;
                 }
             }
 
@@ -229,10 +301,12 @@ namespace Basisprogrammering_Spil_Projekt
                 if (input == "X")
                 {
                     TicTacToeSpillerVinder();
+                    return 1;
                 }
                 else
                 {
                     TicTacToePCVinder();
+                    return 2;
                 }
             }
 
@@ -241,12 +315,16 @@ namespace Basisprogrammering_Spil_Projekt
                 if (input == "X")
                 {
                     TicTacToeSpillerVinder();
+                    return 1;
                 }
                 else
                 {
                     TicTacToePCVinder();
+                    return 2;
                 }
             }
+
+            return 0;
 
             /* //SEJ METODE TIL AT TJEKKE VINDER - LAV FÆRDIG HVIS TID 
 
@@ -279,15 +357,17 @@ namespace Basisprogrammering_Spil_Projekt
 
         }
 
+
         private static void TicTacToePCVinder()
         {
-            Console.Clear();
+            //Console.Clear();
             Console.WriteLine("Computeren vandt!");
+            
         }
 
         private static void TicTacToeSpillerVinder()
         {
-            Console.Clear();
+            //Console.Clear();
             Console.WriteLine("Spilleren vandt!");
         }
 
@@ -302,7 +382,6 @@ namespace Basisprogrammering_Spil_Projekt
             {
                 int x = random.Next(0, 3);
                 int y = random.Next(0, 3);
-                Console.WriteLine(x + " " + y);
                 if (bræt[y, x] != ".")
                 {
                     Console.WriteLine("Computeren valgte et felt hvor der allerede var data");
@@ -316,8 +395,38 @@ namespace Basisprogrammering_Spil_Projekt
 
                 }
 
-                TicTacToeCheckVinder("O", bræt);
+                //TicTacToeCheckVinder("O", bræt);
             }
+
+        }
+
+        private static void TicTacToeComputerFlyt(string[,] bræt)
+        {
+            Random random = new Random();
+            
+            bool optagetData = true;
+
+            while (optagetData)
+            {
+                int x = random.Next(0, 3);
+                int y = random.Next(0, 3);
+                if (bræt[y, x] == "O")
+                {
+                    
+                    bræt[y, x] = ".";
+                    optagetData = false;
+
+                }
+                else
+                {
+                    Console.WriteLine("valgte forkert");
+                    
+
+
+                }
+            }
+           
+
 
         }
 
