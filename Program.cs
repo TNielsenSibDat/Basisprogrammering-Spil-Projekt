@@ -99,18 +99,21 @@ namespace Basisprogrammering_Spil_Projekt
 
             for (int i = antalValg; i < 3; i++)
             {
+                
+
                 Console.WriteLine("Hvor vil du sætte et X?");
                 Console.WriteLine("Vælg koordinat på x aksen (skriv 0, 1 eller 2) ");
                 int xKoordinat = Convert.ToInt32(Console.ReadLine());
                 Console.WriteLine("Vælg koordinat på y aksen (skriv 0, 1 eller 2) ");
                 int yKoordinat = Convert.ToInt32(Console.ReadLine()); //lav måske et if statement ting hvor man bliver spurgt om man er sikker på sit valg hvor der vises et board hvor man har sat sit felt og blive dermed spurgt om det er der man gerne vil sætte sit tegn - så tjekker den med et if statement og man trykkede ja eller nej og reverter tilbage til valget hvis man trykkede nej
-                if (spilBræt[xKoordinat, yKoordinat] != ".")
+                if (spilBræt[yKoordinat, xKoordinat] != ".")
                 {
                     Console.WriteLine("Din giraf");
                 }
                 else
                 {
-                    spilBræt[xKoordinat, yKoordinat] = "X"; //rundt om dette skal if statementet der tjekker om feltet allerede er fyldt ud nok være - 
+                    spilBræt[yKoordinat, xKoordinat] = "X"; //rundt om dette skal if statementet der tjekker om feltet allerede er fyldt ud nok være - 
+                    
                 }
 
 
@@ -121,8 +124,10 @@ namespace Basisprogrammering_Spil_Projekt
                 TicTacToeComputerValg(spilBræt);
 
                 TicTacToeBræt(spilBræt);
-               
+                TicTacToeCheckVinder("X", spilBræt);
             }
+            
+
 
 
 
@@ -139,6 +144,152 @@ namespace Basisprogrammering_Spil_Projekt
 
 
         }
+        
+        private static void TicTacToeCheckVinder(string input, string[,] board)
+        {
+         
+            //tjekker alle rækker for om nogen har vundet
+            if (board[0,0] == input && board[0,1] == input && board[0,2] == input)
+            {
+               if(input == "X")
+                {
+                    TicTacToeSpillerVinder();
+                }
+                else
+                {
+                    TicTacToePCVinder();
+                }
+                
+            }
+
+            if (board[1, 0] == input && board[1, 1] == input && board[1, 2] == input)
+            {
+                if (input == "X")
+                {
+                    TicTacToeSpillerVinder();
+                }
+                else
+                {
+                    TicTacToePCVinder();
+                }
+            }
+
+            if (board[2, 0] == input && board[2, 1] == input && board[2, 2] == input)
+            {
+                if (input == "X")
+                {
+                    TicTacToeSpillerVinder();
+                }
+                else
+                {
+                    TicTacToePCVinder();
+                }
+            }
+
+            //tjekker rækker
+            if (board[0, 0] == input && board[1, 0] == input && board[2, 0] == input)
+            {
+                if (input == "X")
+                {
+                    TicTacToeSpillerVinder();
+                }
+                else
+                {
+                    TicTacToePCVinder();
+                }
+            }
+
+            if (board[0, 1] == input && board[1, 1] == input && board[2, 1] == input)
+            {
+                if (input == "X")
+                {
+                    TicTacToeSpillerVinder();
+                }
+                else
+                {
+                    TicTacToePCVinder();
+                }
+            }
+
+            if (board[0, 2] == input && board[1, 2] == input && board[2, 2] == input)
+            {
+                if (input == "X")
+                {
+                    TicTacToeSpillerVinder();
+                }
+                else
+                {
+                    TicTacToePCVinder();
+                }
+            }
+
+            //tjekker om spiller vandt diagonalt
+            if (board[0, 0] == input && board[1, 1] == input && board[2, 2] == input)
+            {
+                if (input == "X")
+                {
+                    TicTacToeSpillerVinder();
+                }
+                else
+                {
+                    TicTacToePCVinder();
+                }
+            }
+
+            if (board[2, 0] == input && board[1, 1] == input && board[0, 2] == input)
+            {
+                if (input == "X")
+                {
+                    TicTacToeSpillerVinder();
+                }
+                else
+                {
+                    TicTacToePCVinder();
+                }
+            }
+
+            /* //SEJ METODE TIL AT TJEKKE VINDER - LAV FÆRDIG HVIS TID 
+
+             //lav et eller andet med at den trækker dataet fra index 0,0 0,1 0,2 også merger lårtet sammen til en string som vi kan bruge i switchen til at tjekke maybe?
+
+             string resultat = "";
+             int threshold = 0; //vores threshold for at vinde er at der er 3 streg - denne tæller op hver gang der er sat et tegn
+
+             //Her er en for loop der tjekker om computeren vinder ved at sætte en lodret streg i første kolonne - den tjekker for hver iteration om der på index i,0 er sat et 0 hvis der er tælles threshold op - hvis threshold når 3 vil det sige at der er fundet en vinder og vinder funktionen kaldes
+             for(int i = 0; i < 3; i++)
+             {
+                 Console.WriteLine(board[i,0]);
+                 if (board[i, 0] == "O")
+                 {
+                     threshold += 1;
+
+                 }
+
+
+             }
+
+             switch (threshold)
+             {
+                 case 3:
+                     TicTacToeSpillerVinder();
+                     break;
+             }
+
+             */
+
+        }
+
+        private static void TicTacToePCVinder()
+        {
+            Console.Clear();
+            Console.WriteLine("Computeren vandt!");
+        }
+
+        private static void TicTacToeSpillerVinder()
+        {
+            Console.Clear();
+            Console.WriteLine("Spilleren vandt!");
+        }
 
         private static void TicTacToeComputerValg(string[,] bræt)
         {
@@ -147,21 +298,25 @@ namespace Basisprogrammering_Spil_Projekt
             Random random = new Random();
             bool optagetData = true;
 
-            while(optagetData)
+            while(optagetData) 
             {
-                int x = random.Next(0, 2);
-                int y = random.Next(0, 2);
-                if (bræt[x, y] != ".")
+                int x = random.Next(0, 3);
+                int y = random.Next(0, 3);
+                Console.WriteLine(x + " " + y);
+                if (bræt[y, x] != ".")
                 {
                     Console.WriteLine("Computeren valgte et felt hvor der allerede var data");
 
-
+                    
                 }
                 else
                 {
-                    bræt[x, y] = "O";
+                    bræt[y, x] = "O";
                     optagetData = false;
+
                 }
+
+                TicTacToeCheckVinder("O", bræt);
             }
 
         }
