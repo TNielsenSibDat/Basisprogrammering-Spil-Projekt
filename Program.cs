@@ -38,10 +38,7 @@ namespace Basisprogrammering_Spil_Projekt
                     break;
 
                 case "Quit":
-                    break;
-            
-
-                
+                    break; 
                 }
 
             
@@ -90,7 +87,7 @@ namespace Basisprogrammering_Spil_Projekt
 
             TicTacToeBræt(spilBræt);
 
-            TicTacToeVælg(); //sæt koden ind i den der i stedet for når koden til valget er done
+            
 
             
             int spillerVandt = 0;
@@ -98,32 +95,14 @@ namespace Basisprogrammering_Spil_Projekt
             int antalSpil = 0;
             while (true)
             {
-                
-                
-                Console.WriteLine("Hvor vil du sætte et X?");
-                Console.WriteLine("Vælg koordinat på x aksen (skriv 0, 1 eller 2) ");
-                int xKoordinat = Convert.ToInt32(Console.ReadLine());
-                Console.WriteLine("Vælg koordinat på y aksen (skriv 0, 1 eller 2) ");
-                int yKoordinat = Convert.ToInt32(Console.ReadLine()); //lav måske et if statement ting hvor man bliver spurgt om man er sikker på sit valg hvor der vises et board hvor man har sat sit felt og blive dermed spurgt om det er der man gerne vil sætte sit tegn - så tjekker den med et if statement og man trykkede ja eller nej og reverter tilbage til valget hvis man trykkede nej
-                if (spilBræt[yKoordinat, xKoordinat] != ".")
-                {
-                    Console.WriteLine("Din giraf");
-                }
-                else
-                {
-                    spilBræt[yKoordinat, xKoordinat] = "X"; //rundt om dette skal if statementet der tjekker om feltet allerede er fyldt ud nok være - 
 
-                }
-
-
-                TicTacToeBræt(spilBræt);
-
-
+                TicTacToeVælg(spilBræt);
                 // string[,] computerValg = TicTacToeComputerValg();
                 Console.WriteLine("Computeren vælger:");
+                
                 TicTacToeComputerValg(spilBræt);
 
-                TicTacToeBræt(spilBræt);
+                
                 spillerVandt = TicTacToeCheckVinder("X", spilBræt);
                 computerVandt = TicTacToeCheckVinder("O", spilBræt);
                 antalSpil += 1;
@@ -137,29 +116,9 @@ namespace Basisprogrammering_Spil_Projekt
                     
                     Console.WriteLine("Hej");
                     //få bruger til at vælge et felt der har data - så omvendt af det tjek der checker om der er data i et felt og siger nej hvis der er - nu skal den kun gå videre i koden hvis der faktisk er data
-
-                    Console.WriteLine("Nu skal vælge hvilken en af dine 'brikker?' du vil flytte");
-                    Console.WriteLine("Hvilket X vil du flytte?");
-                    Console.WriteLine("Vælg koordinat på x aksen (skriv 0, 1 eller 2) ");
-                    int xFlyt = Convert.ToInt32(Console.ReadLine());
-                    Console.WriteLine("Vælg koordinat på y aksen (skriv 0, 1 eller 2) ");
-                    int yFlyt = Convert.ToInt32(Console.ReadLine());
-                    if (spilBræt[yFlyt, xFlyt] == "X")
-                    {
-                        spilBræt[yFlyt, xFlyt] = ".";
-
-                    }
-                    else
-                    {
-                        //rundt om dette skal if statementet der tjekker om feltet allerede er fyldt ud nok være - 
-                        Console.WriteLine("din giraf");
-                    }
+                    TicTacToeSpillerFlyt(spilBræt);
                     TicTacToeComputerFlyt(spilBræt);
-                    TicTacToeBræt(spilBræt);
-                    
-
-
-
+                    //TicTacToeBræt(spilBræt);
 
                 } else if (spillerVandt != 0 || computerVandt != 0)
                 {
@@ -192,6 +151,7 @@ namespace Basisprogrammering_Spil_Projekt
 
 
         }
+        
         
         private static string[,] TicTacToeClearBoard(string[,] bræt)
         {
@@ -392,6 +352,7 @@ namespace Basisprogrammering_Spil_Projekt
                 {
                     bræt[y, x] = "O";
                     optagetData = false;
+                    TicTacToeBræt(bræt);
 
                 }
 
@@ -431,9 +392,48 @@ namespace Basisprogrammering_Spil_Projekt
         }
 
 
-        private static void TicTacToeVælg()
+        private static void TicTacToeVælg(string[,] spilBræt)
         {
+            Console.WriteLine("Hvor vil du sætte et X?");
+            Console.WriteLine("Vælg koordinat på x aksen (skriv 0, 1 eller 2) ");
+            int xKoordinat = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Vælg koordinat på y aksen (skriv 0, 1 eller 2) ");
+            int yKoordinat = Convert.ToInt32(Console.ReadLine()); //lav måske et if statement ting hvor man bliver spurgt om man er sikker på sit valg hvor der vises et board hvor man har sat sit felt og blive dermed spurgt om det er der man gerne vil sætte sit tegn - så tjekker den med et if statement og man trykkede ja eller nej og reverter tilbage til valget hvis man trykkede nej
+            if (spilBræt[yKoordinat, xKoordinat] != ".")
+            {
+                Console.WriteLine("Din giraf");
+            }
+            else
+            {
+                spilBræt[yKoordinat, xKoordinat] = "X"; //rundt om dette skal if statementet der tjekker om feltet allerede er fyldt ud nok være - 
 
+            }
+
+
+            TicTacToeBræt(spilBræt);
+
+        }
+
+        private static void TicTacToeSpillerFlyt(string[,] spilBræt)
+        {
+            Console.WriteLine("Nu skal vælge hvilken en af dine 'brikker?' du vil flytte");
+            Console.WriteLine("Hvilket X vil du flytte?");
+            Console.WriteLine("Vælg koordinat på x aksen (skriv 0, 1 eller 2) ");
+            int xFlyt = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Vælg koordinat på y aksen (skriv 0, 1 eller 2) ");
+            int yFlyt = Convert.ToInt32(Console.ReadLine());
+            if (spilBræt[yFlyt, xFlyt] == "X")
+            {
+                spilBræt[yFlyt, xFlyt] = ".";
+
+            }
+            else
+            {
+                //rundt om dette skal if statementet der tjekker om feltet allerede er fyldt ud nok være - 
+                Console.WriteLine("din giraf");
+            }
+
+            TicTacToeBræt(spilBræt);
         }
 
         private static void TicTacToeBræt(string[,] Bræt)
