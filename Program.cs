@@ -63,7 +63,8 @@ namespace Basisprogrammering_Spil_Projekt
                     break;
 
                 //hvis spiller skriver Quit
-                case "Quit": 
+                case "Quit":
+                    Console.ReadLine();
                     break; //programmet bryder ud af switch casen og slutter
             }
         }
@@ -96,7 +97,7 @@ namespace Basisprogrammering_Spil_Projekt
             TicTacToeClearBoard(spilBræt); //kalder funktionen TicTacToeClearBoard og sender arrayet spilBræt med som parameter
 
             TicTacToeBræt(spilBræt); //kalder funktionen TicTacToeBræt og sender arrayet spilBræt med som parameter
-
+            
 
 
 
@@ -274,35 +275,6 @@ namespace Basisprogrammering_Spil_Projekt
 
             return 0; //Returnerer 0 hvis ingen af de foregående if statements bliver true
 
-            /* //SEJ METODE TIL AT TJEKKE VINDER - LAV FÆRDIG HVIS TID 
-
-             //lav et eller andet med at den trækker dataet fra index 0,0 0,1 0,2 også merger lårtet sammen til en string som vi kan bruge i switchen til at tjekke maybe?
-
-             string resultat = "";
-             int threshold = 0; //vores threshold for at vinde er at der er 3 streg - denne tæller op hver gang der er sat et tegn
-
-             //Her er en for loop der tjekker om computeren vinder ved at sætte en lodret streg i første kolonne - den tjekker for hver iteration om der på index i,0 er sat et 0 hvis der er tælles threshold op - hvis threshold når 3 vil det sige at der er fundet en vinder og vinder funktionen kaldes
-             for(int i = 0; i < 3; i++)
-             {
-                 Console.WriteLine(board[i,0]);
-                 if (board[i, 0] == "O")
-                 {
-                     threshold += 1;
-
-                 }
-
-
-             }
-
-             switch (threshold)
-             {
-                 case 3:
-                     TicTacToeSpillerVinder();
-                     break;
-             }
-
-             */
-
         }
 
 
@@ -363,7 +335,7 @@ namespace Basisprogrammering_Spil_Projekt
 
         private static void TicTacToeComputerValg(string[,] bræt) //opretter funktionen TicTacToeComputerValg af typen void der tager et 2 dimensionelt array som parameter
         {
-            //måske hardcode nogle valg - fx start med at sæt et tegn i midten hvis det ikke er optaget - ellers gå til random selection hvis datapunktet er optaget
+                
 
             Random random = new Random(); //opretter et objekt af klassen Random
             bool optagetData = true; //opretter en bool optagetData og tildeler den værdien true
@@ -487,21 +459,66 @@ namespace Basisprogrammering_Spil_Projekt
         private static void TicTacToeSpillerFlyt(string[,] spilBræt)//opretter funktionen TicTacToeSpillerFlyt af typen void der tager det 2 dimensionelle array spilBræt som parameter
         {
             Console.WriteLine("Nu skal vælge hvilken en af dine 'brikker?' du vil flytte"); //udskriver en besked omkring hvad spilleren skal gøre
-            Console.WriteLine("Hvilket X vil du flytte?"); //spørger spilleren om hvilket X de vil flytte
-            Console.WriteLine("Vælg koordinat på x aksen (skriv 0, 1 eller 2) "); //udskriver et spørgsmål til spilleren
-            int xFlyt = Convert.ToInt32(Console.ReadLine());  //gemmer brugerens input i variablen xFlyt - bruger Convert.ToInt32 for at konverterer inputtet fra en string til en int
-            Console.WriteLine("Vælg koordinat på y aksen (skriv 0, 1 eller 2) ");//udskriver et spørgsmål til spilleren
-            int yFlyt = Convert.ToInt32(Console.ReadLine());//gemmer brugerens input i variablen yFlyt - bruger Convert.ToInt32 for at konverterer inputtet fra en string til en int
-            if (spilBræt[yFlyt, xFlyt] == "X")//checker om index yFlyt, xFlyt i arrayet spilBræt er lig "X"             //////////////////////////////skal fikse den her ligesom vælg funktionerne så man får fejl og prøv igen hvis man vælger noget invalid
-            {
-                spilBræt[yFlyt, xFlyt] = "."; //tildeler index yFlyt, xFlyt i arrayet spilBræt værdien "."
+            string xFlytString;
+            string yFlytString;
+            int xFlyt;
+            int yFlyt;
 
-            }
-            else //hvis første udsagn ikke er true
+            while (true) //while loop der kører indtil noget bryder loopen
             {
-                //rundt om dette skal if statementet der tjekker om feltet allerede er fyldt ud nok være - 
-                Console.WriteLine("din giraf"); /////////////DETTE SKAL FIXES I MÅRN MAGTER FANDME ÆT LIGE NU
+                while (true) //while loop der kører indtil noget bryder loopen
+                {
+                    Console.WriteLine("Hvilket X vil du flytte?"); //spørger spilleren om hvilket X de vil flytte
+                    Console.WriteLine("Vælg koordinat på x aksen (skriv 0, 1 eller 2) "); //udskriver et spørgsmål til spilleren
+                    xFlytString = Console.ReadLine(); //gemmer brugerens input i xFlytString variablen       
+                    if (int.TryParse(xFlytString, out xFlyt) != true) //opretter et if statement der kører TryParse på xFlytString - udtrykket bliver true hvis TryParse metoden fejler og returnerer false
+                    {
+                        Console.WriteLine("Skriv et tal"); //udskriver besked til spilleren så de ved at de skal skrive et tal
+                    } else if (xFlyt > 2)//hvis første betingelse ikke er sand tjekkes der om xFlyt er større end 2
+                    {
+                        Console.WriteLine("Skriv venligts 0, 1 eller 2"); //hvis else if udtrykker er sandt udskrives der til spilleren at de skal skrive 0,1 eller 2
+                    }
+                    else //hvis de forrige udtryk er falske kører dette:
+                    {
+                        break; //bryder loopen 
+
+                    }
+
+                }
+
+                while (true) //while loop der kører indtil noget bryder loopen
+                {
+                    Console.WriteLine("Hvilket Y vil du flytte?"); //spørger spilleren om hvilket Y de vil flytte
+                    Console.WriteLine("Vælg koordinat på y aksen (skriv 0, 1 eller 2) "); //udskriver et spørgsmål til spilleren
+                    yFlytString = Console.ReadLine(); //gemmer brugerens input i yFlytString variablen
+                    if (int.TryParse(yFlytString, out yFlyt) != true) //opretter et if statement der kører TryParse på yFlytString - udtrykket bliver true hvis TryParse metoden fejler og returnerer false
+                    {
+                        Console.WriteLine("Skriv et tal"); //udskriver besked til spilleren så de ved at de skal skrive et tal
+                    }
+                    else if (yFlyt > 2)//hvis første betingelse ikke er sand tjekkes der om yFlyt er større end 2
+                    {
+                        Console.WriteLine("Skriv venligts 0, 1 eller 2"); //hvis else if udtrykker er sandt udskrives der til spilleren at de skal skrive 0,1 eller 2
+                    }
+                    else //hvis de forrige udtryk er falske kører dette:
+                    {
+                        break; //bryder loopen 
+
+                    }
+                }
+                
+                
+                if (spilBræt[yFlyt, xFlyt] == "X")//checker om index yFlyt, xFlyt i arrayet spilBræt er lig "X"             //////////////////////////////skal fikse den her ligesom vælg funktionerne så man får fejl og prøv igen hvis man vælger noget invalid TryParse pis pis
+                {
+                    spilBræt[yFlyt, xFlyt] = "."; //tildeler index yFlyt, xFlyt i arrayet spilBræt værdien "."
+                    break; //bryder ud af while loopet
+                }
+                else //hvis første udsagn ikke er true
+                {
+                    //rundt om dette skal if statementet der tjekker om feltet allerede er fyldt ud nok være - 
+                    Console.WriteLine("Vælg venligst et felt hvor der står et 'X'"); /////////////DETTE SKAL FIXES I MÅRN MAGTER FANDME ÆT LIGE NU
+                }
             }
+
 
             TicTacToeBræt(spilBræt); //kalder funktionen TicTacToeBræt og sender det 2 dimensionelle array spilBræt med som parameter
         }
