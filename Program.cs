@@ -32,7 +32,7 @@ namespace Basisprogrammering_Spil_Projekt
         
       
             
-       }
+        }
         private static void GætTallet()
         {
       
@@ -64,7 +64,7 @@ namespace Basisprogrammering_Spil_Projekt
 
                 //hvis spiller skriver Quit
                 case "Quit":
-                    Console.ReadLine();
+                    Environment.Exit(0); //Bruger Environment.Exit(0) for at lukke programmet
                     break; //programmet bryder ud af switch casen og slutter
             }
         }
