@@ -24,20 +24,23 @@ namespace Basisprogrammering_Spil_Projekt
 
 
 
-            //Funktioner til første spil
+            
 
 
-            //Funktioner til andet spil
+            
      
         
       
             
         }
+
+        //Funktioner til første spil (Alaa)
         private static void GætTallet()
         {
       
         }
 
+        //Fælles funktionen Menu()
         private static void Menu(){
             Console.WriteLine("Velkommen til!"); //Udskriver velkomstbesked
 
@@ -69,6 +72,8 @@ namespace Basisprogrammering_Spil_Projekt
             }
         }
 
+
+        //Funktioner til andet spil (Tobias)
         private static void TicTacToe() //Funktionen af typen void (returnerer ikke noget) oprettes
         {
             Console.WriteLine("Velkommen til kryds og bolle!"); //Udskriver velkomstbesked
