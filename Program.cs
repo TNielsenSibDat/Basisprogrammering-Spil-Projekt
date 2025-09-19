@@ -74,7 +74,7 @@ namespace Basisprogrammering_Spil_Projekt
 
 
         //Funktioner til andet spil (Tobias)
-        private static void TicTacToe() //Funktionen af typen void (returnerer ikke noget) oprettes
+        private static void TicTacToe() //Funktionen TicTacToe() af typen void (returnerer ikke noget) oprettes
         {
             Console.WriteLine("Velkommen til kryds og bolle!"); //Udskriver velkomstbesked
             Console.WriteLine(); //laver et linebreak
@@ -107,8 +107,8 @@ namespace Basisprogrammering_Spil_Projekt
 
 
             int spillerVandt = 0; //opretter en variabel af typen int kaldet spillerVandt som tildeles værdien 0
-            int computerVandt = 0; //opretter en variabel af typen int kaldet computerVand som tildeles værdien 0
-            int antalSpil = 0; //opretter en variabel af typen int kaldes antalSpil som tildeles værdien 0
+            int computerVandt = 0; //opretter en variabel af typen int kaldet computerVandt som tildeles værdien 0
+            int antalSpil = 0; //opretter en variabel af typen int kaldet antalSpil som tildeles værdien 0
             while (true) //opretter et while loop der kører uendeligt
             {
 
@@ -124,8 +124,8 @@ namespace Basisprogrammering_Spil_Projekt
                 
 
 
-                //if statement der tjekker om variblerne spillerVandt og computerVandt begge er lig 0 samt om antalSpil delt i 3 giver en rest på 0
-                if (spillerVandt == 0 && computerVandt == 0 && antalSpil == 3) // når spillerVandt og computerVandt er lig 0 betyder det at ingen har vundet endnu antalSpil skal være lig 3 da der kun kan være mulighed for at der skal flyttes plå brikker efter der er gået 3 runder (efter alle har lagt 3 brikker)
+                //if statement der tjekker om variblerne spillerVandt og computerVandt begge er lig 0 samt om antalSpil er lig 3
+                if (spillerVandt == 0 && computerVandt == 0 && antalSpil == 3) // når spillerVandt og computerVandt er lig 0 betyder det at ingen har vundet endnu antalSpil skal være lig 3 da der kun kan være mulighed for at der skal flyttes på brikker efter der er gået 3 runder (efter alle har lagt 3 brikker)
                 {
                     antalSpil -= 1; //trækker 1 fra variablen antalSpil - dette medfører at når loopen gentager sig så vil antalSpil altid blive lig med 3 når den kommer til dette if statement - det skyldes at hvis der ikke er fundet nogen vinder efter spilleren og computeren har flyttet på deres første brik så skal dette if statement blive sandt igen så der kan flyttes endnu engang indtil der er fundet en vinder
                     
@@ -138,7 +138,7 @@ namespace Basisprogrammering_Spil_Projekt
                 } else if (spillerVandt != 0 || computerVandt != 0) //else if statement der tjekker om enten spillerVandt eller computerVandt ikker er lig med 0
                 {
                     TicTacToeClearBoard(spilBræt); //hvis else if udtrykket er sandt kaldes funktionen TicTacToeClearBoard og arrayet spilBræt sendes med som parameter
-                    antalSpil = 0; //antal spil variablen tildeles værdien 0 da spillet genstates
+                    antalSpil = 0; //antal spil variablen tildeles værdien 0 da spillet genstartes
                 }
 
             }
@@ -250,7 +250,7 @@ namespace Basisprogrammering_Spil_Projekt
             }
 
             //tjekker efter vinder diagonalt
-            if (board[0, 0] == input && board[1, 1] == input && board[2, 2] == input) //if statement der checker om index 0.0, 1.0 og 2.0 i arrayet board er lig med stringen input
+            if (board[0, 0] == input && board[1, 1] == input && board[2, 2] == input) //if statement der checker om index 0.0, 1.1 og 2.2 i arrayet board er lig med stringen input
             {
                 if (input == "X")//hvis input == "X" altså hvis det er 3 X i streg er det spilleren der har vundet
                 {
@@ -347,8 +347,8 @@ namespace Basisprogrammering_Spil_Projekt
 
             while(optagetData) //opretter en while loop der kører så længe at optagetData er true
             {
-                int x = random.Next(0, 3); //opretter en variabel af typen int kaldet x - tildeles værdien af random.Next(0,3) - metoden Next() kaldes på objektet random - vælger et tilfældigt tal mellem 0 og 3
-                int y = random.Next(0, 3); //opretter en variabel af typen int kaldet y - tildeles værdien af random.Next(0,3) - metoden Next() kaldes på objektet random - vælger et tilfældigt tal mellem 0 og 3
+                int x = random.Next(0, 3); //opretter en variabel af typen int kaldet x - tildeles værdien af random.Next(0,3) - metoden Next() kaldes på objektet random - vælger et tilfældigt tal mellem 0 og 2
+                int y = random.Next(0, 3); //opretter en variabel af typen int kaldet y - tildeles værdien af random.Next(0,3) - metoden Next() kaldes på objektet random - vælger et tilfældigt tal mellem 0 og 2
                 if (bræt[y, x] != ".") // opretter et if statement der checker om index y,x i arrayet bræt ikke er lig "."
                 {
                     //sker ikke andet end at loopen gentager sig
@@ -374,8 +374,8 @@ namespace Basisprogrammering_Spil_Projekt
 
             while (optagetData)//opretter en while loop der kører så længe at optagetData er true
             {
-                int x = random.Next(0, 3);//opretter en variabel af typen int kaldet x - tildeles værdien af random.Next(0,3) - metoden Next() kaldes på objektet random - vælger et tilfældigt tal mellem 0 og 3
-                int y = random.Next(0, 3);//opretter en variabel af typen int kaldet y - tildeles værdien af random.Next(0,3) - metoden Next() kaldes på objektet random - vælger et tilfældigt tal mellem 0 og 3
+                int x = random.Next(0, 3);//opretter en variabel af typen int kaldet x - tildeles værdien af random.Next(0,3) - metoden Next() kaldes på objektet random - vælger et tilfældigt tal mellem 0 og 2
+                int y = random.Next(0, 3);//opretter en variabel af typen int kaldet y - tildeles værdien af random.Next(0,3) - metoden Next() kaldes på objektet random - vælger et tilfældigt tal mellem 0 og 2
                 if (bræt[y, x] == "O") //if statement der checker om index y,x i arrayet bræt er lig med "O"
                 {
                     
@@ -512,15 +512,15 @@ namespace Basisprogrammering_Spil_Projekt
                 }
                 
                 
-                if (spilBræt[yFlyt, xFlyt] == "X")//checker om index yFlyt, xFlyt i arrayet spilBræt er lig "X"             //////////////////////////////skal fikse den her ligesom vælg funktionerne så man får fejl og prøv igen hvis man vælger noget invalid TryParse pis pis
+                if (spilBræt[yFlyt, xFlyt] == "X")//checker om index yFlyt, xFlyt i arrayet spilBræt er lig "X"  
                 {
                     spilBræt[yFlyt, xFlyt] = "."; //tildeler index yFlyt, xFlyt i arrayet spilBræt værdien "."
                     break; //bryder ud af while loopet
                 }
                 else //hvis første udsagn ikke er true
                 {
-                    //rundt om dette skal if statementet der tjekker om feltet allerede er fyldt ud nok være - 
-                    Console.WriteLine("Vælg venligst et felt hvor der står et 'X'"); /////////////DETTE SKAL FIXES I MÅRN MAGTER FANDME ÆT LIGE NU
+                    
+                    Console.WriteLine("Vælg venligst et felt hvor der står et 'X'"); //Udskriver besked til brugeren for at forklare hvad de skal skrive
                 }
             }
 
